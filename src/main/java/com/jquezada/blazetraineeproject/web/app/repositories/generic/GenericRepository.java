@@ -1,4 +1,4 @@
-package com.jquezada.blazetraineeproject.web.app.repositories.base;
+package com.jquezada.blazetraineeproject.web.app.repositories.generic;
 
 import com.jquezada.blazetraineeproject.web.app.domain.generic.BaseModel;
 

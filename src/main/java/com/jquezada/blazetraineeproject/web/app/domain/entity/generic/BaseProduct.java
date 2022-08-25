@@ -1,11 +1,8 @@
-package com.jquezada.blazetraineeproject.web.app.domain.entity;
+package com.jquezada.blazetraineeproject.web.app.domain.entity.generic;
 
-import com.jquezada.blazetraineeproject.web.app.domain.generic.BaseModel;
-import com.jquezada.blazetraineeproject.web.app.domain.generic.CompanyBaseModel;
-import org.springframework.data.mongodb.core.mapping.Document;
+import com.jquezada.blazetraineeproject.web.app.domain.generic.ShopBaseModel;
 
-@Document("shops")
-public class Shop extends CompanyBaseModel {
+public class BaseProduct extends ShopBaseModel {
     private String name;
     private String description;
 
