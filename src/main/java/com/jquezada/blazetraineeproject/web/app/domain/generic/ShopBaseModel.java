@@ -1,6 +1,6 @@
 package com.jquezada.blazetraineeproject.web.app.domain.generic;
 
-public abstract class ShopBaseModel extends CompanyBaseModel {
+public class ShopBaseModel extends CompanyBaseModel {
     protected String shopId;
 
     public String getShopId() {

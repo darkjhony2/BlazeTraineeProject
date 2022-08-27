@@ -4,7 +4,7 @@ import com.jquezada.blazetraineeproject.web.app.domain.dto.CompanyDto;
 
 import java.util.List;
 
-public interface ICompanyService {
+public interface CompanyService {
 
     List<CompanyDto> getCompanies();
     void saveCompany(CompanyDto companyDto);

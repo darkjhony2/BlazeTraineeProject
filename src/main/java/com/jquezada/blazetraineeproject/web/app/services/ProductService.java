@@ -4,7 +4,7 @@ import com.jquezada.blazetraineeproject.web.app.domain.dto.ProductDto;
 
 import java.util.List;
 
-public interface IProductService {
+public interface ProductService {
     List<ProductDto> getProducts();
     void saveProduct(ProductDto productDto);
     void updateProduct(ProductDto productDto);

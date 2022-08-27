@@ -1,10 +1,11 @@
 package com.jquezada.blazetraineeproject.web.app.services.Impl;
 
+import com.google.inject.Inject;
 import com.jquezada.blazetraineeproject.web.app.domain.dto.ShopDto;
 import com.jquezada.blazetraineeproject.web.app.domain.entity.Shop;
 import com.jquezada.blazetraineeproject.web.app.domain.mapper.ShopMapper;
 import com.jquezada.blazetraineeproject.web.app.repositories.ShopRepository;
-import com.jquezada.blazetraineeproject.web.app.services.IShopService;
+import com.jquezada.blazetraineeproject.web.app.services.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ShopServiceImpl implements IShopService {
+public class ShopServiceImpl implements ShopService {
 
     @Autowired
     private ShopRepository shopRepository;
-
     @Autowired
     private ShopMapper shopMapper;
 
@@ -31,6 +31,20 @@ public class ShopServiceImpl implements IShopService {
             e.printStackTrace();
         }
         return listDto;
+    }
+
+    @Override
+    public ShopDto getShopById(String shopId) {
+        ShopDto shopDto = null;
+        try {
+            Shop shop = shopRepository.findById(shopId).orElse(null);
+            if(shop != null){
+                shopDto = shopMapper.entityToDto(shop);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return shopDto;
     }
 
     @Override

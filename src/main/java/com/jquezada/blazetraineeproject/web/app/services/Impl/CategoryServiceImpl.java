@@ -1,10 +1,14 @@
 package com.jquezada.blazetraineeproject.web.app.services.Impl;
 
+import com.google.inject.Inject;
 import com.jquezada.blazetraineeproject.web.app.domain.dto.CategoryDto;
 import com.jquezada.blazetraineeproject.web.app.domain.entity.Category;
+import com.jquezada.blazetraineeproject.web.app.domain.entity.Shop;
 import com.jquezada.blazetraineeproject.web.app.domain.mapper.CategoryMapper;
+import com.jquezada.blazetraineeproject.web.app.domain.mapper.ShopMapper;
 import com.jquezada.blazetraineeproject.web.app.repositories.CategoryRepository;
-import com.jquezada.blazetraineeproject.web.app.services.ICategoryService;
+import com.jquezada.blazetraineeproject.web.app.services.CategoryService;
+import com.jquezada.blazetraineeproject.web.app.services.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +16,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CategoryImpl implements ICategoryService {
+public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private ShopService shopService;
+
+    @Autowired
+    private ShopMapper shopMapper;
 
     @Autowired
     private CategoryMapper categoryMapper;
@@ -34,8 +44,27 @@ public class CategoryImpl implements ICategoryService {
     }
 
     @Override
+    public CategoryDto getCategoryById(String categoryId) {
+        CategoryDto categoryDto = null;
+        try {
+            Category category = categoryRepository.findById(categoryId).orElse(null);
+            if(category != null){
+                categoryDto = categoryMapper.entityToDto(category);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return categoryDto;
+    }
+
+    @Override
     public void saveCategory(CategoryDto categoryDto) {
         try {
+            Shop shop = null;
+            if(categoryDto.getShopId() != null){
+                shop =  shopMapper.dtoToEntity(shopService.getShopById(categoryDto.getShopId()));
+                categoryDto.setCompanyId(shop.getCompanyId());
+            }
             categoryRepository.save(categoryMapper.dtoToEntity(categoryDto));
         }catch (Exception e){
             e.printStackTrace();

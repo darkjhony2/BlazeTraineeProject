@@ -4,6 +4,7 @@ public class ShopDto {
     private String id;
     private String name;
     private String description;
+    private String companyId;
 
     public String getId() {
         return id;
@@ -27,5 +28,13 @@ public class ShopDto {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
     }
 }

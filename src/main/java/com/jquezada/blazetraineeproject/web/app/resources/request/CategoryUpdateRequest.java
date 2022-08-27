@@ -5,6 +5,7 @@ public class CategoryUpdateRequest {
     private String id;
     private String name;
     private String description;
+    private String shopId;
 
     public String getId() {
         return id;
@@ -28,5 +29,13 @@ public class CategoryUpdateRequest {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(String shopId) {
+        this.shopId = shopId;
     }
 }

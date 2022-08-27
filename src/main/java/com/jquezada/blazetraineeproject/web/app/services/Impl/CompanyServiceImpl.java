@@ -4,7 +4,7 @@ import com.jquezada.blazetraineeproject.web.app.domain.dto.CompanyDto;
 import com.jquezada.blazetraineeproject.web.app.domain.entity.Company;
 import com.jquezada.blazetraineeproject.web.app.domain.mapper.CompanyMapper;
 import com.jquezada.blazetraineeproject.web.app.repositories.CompanyRepository;
-import com.jquezada.blazetraineeproject.web.app.services.ICompanyService;
+import com.jquezada.blazetraineeproject.web.app.services.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CompanyImpl implements ICompanyService {
+public class CompanyServiceImpl implements CompanyService {
 
     @Autowired
     private CompanyMapper companyMapper;
