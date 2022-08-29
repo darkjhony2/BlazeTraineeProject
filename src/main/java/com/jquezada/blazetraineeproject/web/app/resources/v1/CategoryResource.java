@@ -10,6 +10,7 @@ import com.jquezada.blazetraineeproject.web.app.resources.request.CategoryUpdate
 import com.jquezada.blazetraineeproject.web.app.resources.response.CategoryResponse;
 import com.jquezada.blazetraineeproject.web.app.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class CategoryResource {
     private CategoryMapper categoryMapper;
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public List<CategoryResponse> getCategories(){
         //CategoryService categoryService = injector.getInstance(CategoryService.class);
         return categoryMapper.dtoListToResponseList(categoryService.getCategories());
