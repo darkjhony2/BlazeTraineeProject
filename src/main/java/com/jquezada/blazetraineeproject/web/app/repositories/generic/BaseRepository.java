@@ -6,4 +6,5 @@ import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
 public interface BaseRepository<T extends BaseModel> extends GenericRepository<T>, MongoRepository<T, String> {
+
 }

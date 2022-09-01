@@ -33,19 +33,19 @@ public class CategoryResource {
     @PreAuthorize("hasRole('ADMIN')")
     public List<CategoryResponse> getCategories(){
         //CategoryService categoryService = injector.getInstance(CategoryService.class);
-        return categoryMapper.dtoListToResponseList(categoryService.getCategories());
+        return categoryMapper.entitiesToResponses(categoryService.getCategories());
     }
 
     @PostMapping
     public void saveCategory(@RequestBody CategoryAddRequest categoryAddRequest){
         //CategoryService categoryService = injector.getInstance(CategoryService.class);
-        categoryService.saveCategory(categoryMapper.addRequestToDto(categoryAddRequest));
+        categoryService.saveCategory(categoryMapper.addRequestToEntity(categoryAddRequest));
     }
 
     @PutMapping
     public void updateCategory(@RequestBody CategoryUpdateRequest categoryUpdateRequest){
         //CategoryService categoryService = injector.getInstance(CategoryService.class);
-        categoryService.updateCategory(categoryMapper.updateRequestToDto(categoryUpdateRequest));
+        categoryService.updateCategory(categoryMapper.updateRequestToEntity(categoryUpdateRequest));
     }
 
     @PostMapping("/delete/{id}")

@@ -28,19 +28,19 @@ public class CompanyResource {
     @GetMapping
     public List<CompanyResponse> getCompanies(){
         //CompanyService companyService = injector.getInstance(CompanyService.class);
-        return companyMapper.dtoListToResponseList(companyService.getCompanies());
+        return companyMapper.entitiesToResponses(companyService.getCompanies());
     }
 
     @PostMapping
     public void saveCompany(@RequestBody CompanyAddRequest companyAddRequest){
         //CompanyService companyService = injector.getInstance(CompanyService.class);
-        companyService.saveCompany(companyMapper.addRequestToDto(companyAddRequest));
+        companyService.saveCompany(companyMapper.addRequestToEntity(companyAddRequest));
     }
 
     @PutMapping
     public void updateCompany(@RequestBody CompanyUpdateRequest companyUpdateRequest){
         //CompanyService companyService = injector.getInstance(CompanyService.class);
-        companyService.updateCompany(companyMapper.updateRequestToDto(companyUpdateRequest));
+        companyService.updateCompany(companyMapper.updateRequestToEntity(companyUpdateRequest));
     }
 
     @PostMapping("/delete/{id}")

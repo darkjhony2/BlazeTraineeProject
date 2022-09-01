@@ -1,7 +1,5 @@
 package com.jquezada.blazetraineeproject.web.app.services.Impl;
 
-import com.google.inject.Inject;
-import com.jquezada.blazetraineeproject.web.app.domain.dto.ShopDto;
 import com.jquezada.blazetraineeproject.web.app.domain.entity.Shop;
 import com.jquezada.blazetraineeproject.web.app.domain.mapper.ShopMapper;
 import com.jquezada.blazetraineeproject.web.app.repositories.ShopRepository;
@@ -21,48 +19,43 @@ public class ShopServiceImpl implements ShopService {
     private ShopMapper shopMapper;
 
     @Override
-    public List<ShopDto> getShops() {
+    public List<Shop> getShops() {
         List<Shop> list = new ArrayList<Shop>();
-        List<ShopDto> listDto = new ArrayList<>();
         try {
             list = shopRepository.findAll();
-            listDto = shopMapper.entitiesToDtoList(list);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return listDto;
+        return list;
     }
 
     @Override
-    public ShopDto getShopById(String shopId) {
-        ShopDto shopDto = null;
+    public Shop getShopById(String shopId) {
+        Shop shop = null;
         try {
-            Shop shop = shopRepository.findById(shopId).orElse(null);
-            if(shop != null){
-                shopDto = shopMapper.entityToDto(shop);
-            }
+            shop = shopRepository.findById(shopId).orElse(null);
         } catch (Exception e){
             e.printStackTrace();
         }
-        return shopDto;
+        return shop;
     }
 
     @Override
-    public void saveShop(ShopDto shopDto) {
+    public void saveShop(Shop shop) {
         try {
-            shopRepository.save(shopMapper.dtoToEntity(shopDto));
+            shopRepository.save(shop);
         } catch (Exception e){
             e.printStackTrace();
         }
     }
 
     @Override
-    public void updateShop(ShopDto shopDto) {
+    public void updateShop(Shop shop) {
         try {
-            Shop shopDB = shopRepository.findById(shopDto.getId()).orElse(null);
+            Shop shopDB = shopRepository.findById(shop.getId()).orElse(null);
             if(shopDB != null){
-                shopDB.setName(shopDto.getName());
-                shopDB.setDescription(shopDto.getDescription());
+                shopDB.setName(shop.getName());
+                shopDB.setDescription(shop.getDescription());
                 shopRepository.save(shopDB);
             }
         } catch (Exception e){

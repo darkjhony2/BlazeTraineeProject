@@ -1,6 +1,5 @@
 package com.jquezada.blazetraineeproject.web.app.domain.mapper;
 
-import com.jquezada.blazetraineeproject.web.app.domain.dto.CompanyDto;
 import com.jquezada.blazetraineeproject.web.app.domain.entity.Company;
 import com.jquezada.blazetraineeproject.web.app.resources.request.CompanyAddRequest;
 import com.jquezada.blazetraineeproject.web.app.resources.request.CompanyUpdateRequest;
@@ -12,12 +11,10 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface CompanyMapper {
 
-    Company dtoToEntity(CompanyDto companyDto);
-    CompanyDto entityToDto(Company company);
-    CompanyResponse dtoToResponse(CompanyDto companyDto);
-    List<Company> dtoListToEntities(List<CompanyDto> companyDtoList);
-    List<CompanyDto> entitiesToDtoList(List<Company> companyList);
-    List<CompanyResponse> dtoListToResponseList(List<CompanyDto> companyDtoList);
-    CompanyDto addRequestToDto(CompanyAddRequest companyAddRequest);
-    CompanyDto updateRequestToDto(CompanyUpdateRequest companyUpdateRequest);
+    Company addRequestToEntity(CompanyAddRequest companyAddRequest);
+    Company updateRequestToEntity(CompanyUpdateRequest companyUpdateRequest);
+    CompanyResponse entityToResponse(Company company);
+    List<Company> addRequestsToEntities(List<CompanyAddRequest> companyAddRequests);
+    List<Company> updateRequestsToEntities(List<CompanyUpdateRequest> companyUpdateRequests);
+    List<CompanyResponse> entitiesToResponses(List<Company> companies);
 }

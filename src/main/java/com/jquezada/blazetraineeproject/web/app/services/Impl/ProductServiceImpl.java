@@ -1,7 +1,5 @@
 package com.jquezada.blazetraineeproject.web.app.services.Impl;
 
-import com.google.inject.Inject;
-import com.jquezada.blazetraineeproject.web.app.domain.dto.ProductDto;
 import com.jquezada.blazetraineeproject.web.app.domain.entity.Product;
 import com.jquezada.blazetraineeproject.web.app.domain.entity.Shop;
 import com.jquezada.blazetraineeproject.web.app.domain.mapper.ProductMapper;
@@ -31,39 +29,37 @@ public class ProductServiceImpl implements ProductService{
     private ShopMapper shopMapper;
 
     @Override
-    public List<ProductDto> getProducts() {
+    public List<Product> getProducts() {
         List<Product> list = new ArrayList<Product>();
-        List<ProductDto> listDto = new ArrayList<>();
         try {
             list = productRepository.findAll();
-            listDto = productMapper.entitiesToDtoList(list);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return listDto;
+        return list;
     }
 
     @Override
-    public void saveProduct(ProductDto productDto) {
+    public void saveProduct(Product product) {
         try {
             Shop shop = null;
-            if(productDto.getShopId() != null){
-                shop = shopMapper.dtoToEntity(shopService.getShopById(productDto.getShopId()));
-                productDto.setCompanyId(shop.getCompanyId());
+            if(product.getShopId() != null){
+                shop = shopService.getShopById(product.getShopId());
+                product.setCompanyId(shop.getCompanyId());
             }
-            productRepository.save(productMapper.dtoToEntity(productDto));
+            productRepository.save(product);
         } catch (Exception e){
             e.printStackTrace();
         }
     }
 
     @Override
-    public void updateProduct(ProductDto productDto) {
+    public void updateProduct(Product product) {
         try {
-            Product productDB = productRepository.findById(productDto.getId()).orElse(null);
+            Product productDB = productRepository.findById(product.getId()).orElse(null);
             if(productDB != null){
-                productDB.setName(productDto.getName());
-                productDB.setDescription(productDto.getDescription());
+                productDB.setName(product.getName());
+                productDB.setDescription(product.getDescription());
                 productRepository.save(productDB);
             }
         } catch (Exception e){

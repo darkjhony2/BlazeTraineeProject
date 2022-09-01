@@ -1,14 +1,14 @@
 package com.jquezada.blazetraineeproject.web.app.services;
 
-import com.jquezada.blazetraineeproject.web.app.domain.dto.ShopDto;
+import com.jquezada.blazetraineeproject.web.app.domain.entity.Shop;
 
 import java.util.List;
 
 public interface ShopService {
 
-    List<ShopDto> getShops();
-    ShopDto getShopById(String shopId);
-    void saveShop(ShopDto shopDto);
-    void updateShop(ShopDto shopDto);
+    List<Shop> getShops();
+    Shop getShopById(String shopId);
+    void saveShop(Shop shop);
+    void updateShop(Shop shop);
     void deleteShopId(String shopId);
 }

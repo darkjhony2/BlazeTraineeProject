@@ -28,19 +28,19 @@ public class ShopResource {
     @GetMapping
     public List<ShopResponse> getShops(){
         //ShopService shopService = injector.getInstance(ShopService.class);
-        return shopMapper.dtoListToResponseList(shopService.getShops());
+        return shopMapper.entitiesToResponses(shopService.getShops());
     }
 
     @PostMapping
     public void saveShop(@RequestBody ShopAddRequest shopAddRequest){
         //ShopService shopService = injector.getInstance(ShopService.class);
-        shopService.saveShop(shopMapper.addRequestToDto(shopAddRequest));
+        shopService.saveShop(shopMapper.addRequestToEntity(shopAddRequest));
     }
 
     @PutMapping
     public void updateShop(@RequestBody ShopUpdateRequest shopUpdateRequest){
         //ShopService shopService = injector.getInstance(ShopService.class);
-        shopService.updateShop(shopMapper.updateRequestToDto(shopUpdateRequest));
+        shopService.updateShop(shopMapper.updateRequestToEntity(shopUpdateRequest));
     }
 
     @PostMapping("/delete/{id}")

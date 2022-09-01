@@ -25,19 +25,19 @@ public class ProductResource {
     @GetMapping
     public List<ProductResponse> getProducts(){
         //ProductService productService = injector.getInstance(ProductService.class);
-        return productMapper.dtoListToResponseList(productService.getProducts());
+        return productMapper.entitiesToResponses(productService.getProducts());
     }
 
     @PostMapping
     public void saveProduct(@RequestBody ProductAddRequest productAddRequest){
         //ProductService productService = injector.getInstance(ProductService.class);
-        productService.saveProduct(productMapper.addRequestToDto(productAddRequest));
+        productService.saveProduct(productMapper.addRequestToEntity(productAddRequest));
     }
 
     @PutMapping
     public void updateProduct(@RequestBody ProductUpdateRequest productUpdateRequest){
         //ProductService productService = injector.getInstance(ProductService.class);
-        productService.updateProduct(productMapper.updateRequestToDto(productUpdateRequest));
+        productService.updateProduct(productMapper.updateRequestToEntity(productUpdateRequest));
     }
 
     @PostMapping("/delete/{id}")

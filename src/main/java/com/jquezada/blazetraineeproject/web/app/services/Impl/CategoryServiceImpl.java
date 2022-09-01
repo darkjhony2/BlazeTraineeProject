@@ -1,7 +1,5 @@
 package com.jquezada.blazetraineeproject.web.app.services.Impl;
 
-import com.google.inject.Inject;
-import com.jquezada.blazetraineeproject.web.app.domain.dto.CategoryDto;
 import com.jquezada.blazetraineeproject.web.app.domain.entity.Category;
 import com.jquezada.blazetraineeproject.web.app.domain.entity.Shop;
 import com.jquezada.blazetraineeproject.web.app.domain.mapper.CategoryMapper;
@@ -31,53 +29,48 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryMapper categoryMapper;
 
     @Override
-    public List<CategoryDto> getCategories() {
+    public List<Category> getCategories() {
         List<Category> list = new ArrayList<Category>();
-        List<CategoryDto> listDto = new ArrayList<>();
         try{
             list = categoryRepository.findAll();
-            listDto = categoryMapper.entitiesToDtoList(list);
         } catch (Exception e){
             e.printStackTrace();
         }
-        return listDto;
+        return list;
     }
 
     @Override
-    public CategoryDto getCategoryById(String categoryId) {
-        CategoryDto categoryDto = null;
+    public Category getCategoryById(String categoryId) {
+        Category category = null;
         try {
-            Category category = categoryRepository.findById(categoryId).orElse(null);
-            if(category != null){
-                categoryDto = categoryMapper.entityToDto(category);
-            }
+            category = categoryRepository.findById(categoryId).orElse(null);
         } catch (Exception e){
             e.printStackTrace();
         }
-        return categoryDto;
+        return category;
     }
 
     @Override
-    public void saveCategory(CategoryDto categoryDto) {
+    public void saveCategory(Category category) {
         try {
             Shop shop = null;
-            if(categoryDto.getShopId() != null){
-                shop =  shopMapper.dtoToEntity(shopService.getShopById(categoryDto.getShopId()));
-                categoryDto.setCompanyId(shop.getCompanyId());
+            if(category.getShopId() != null){
+                shop =  shopService.getShopById(category.getShopId());
+                category.setCompanyId(shop.getCompanyId());
             }
-            categoryRepository.save(categoryMapper.dtoToEntity(categoryDto));
+            categoryRepository.save(category);
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
     @Override
-    public void updateCategory(CategoryDto categoryDto) {
+    public void updateCategory(Category category) {
         try {
-            Category categoryDB = categoryRepository.findById(categoryDto.getId()).orElse(null);
+            Category categoryDB = categoryRepository.findById(category.getId()).orElse(null);
             if(categoryDB != null){
-                categoryDB.setName(categoryDto.getName());
-                categoryDB.setDescription(categoryDto.getDescription());
+                categoryDB.setName(category.getName());
+                categoryDB.setDescription(category.getDescription());
                 categoryRepository.save(categoryDB);
             }
         } catch (Exception e){

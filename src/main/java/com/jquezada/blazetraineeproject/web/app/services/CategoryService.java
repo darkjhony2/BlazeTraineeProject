@@ -1,14 +1,14 @@
 package com.jquezada.blazetraineeproject.web.app.services;
 
-import com.jquezada.blazetraineeproject.web.app.domain.dto.CategoryDto;
+import com.jquezada.blazetraineeproject.web.app.domain.entity.Category;
 
 import java.util.List;
 
 public interface CategoryService {
 
-    List<CategoryDto> getCategories();
-    CategoryDto getCategoryById(String categoryId);
-    void saveCategory(CategoryDto categoryDto);
-    void updateCategory(CategoryDto categoryDto);
+    List<Category> getCategories();
+    Category getCategoryById(String categoryId);
+    void saveCategory(Category category);
+    void updateCategory(Category category);
     void deleteCategoryById(String categoryId);
 }

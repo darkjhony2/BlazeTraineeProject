@@ -1,12 +1,12 @@
 package com.jquezada.blazetraineeproject.web.app.services;
 
-import com.jquezada.blazetraineeproject.web.app.domain.dto.ProductDto;
+import com.jquezada.blazetraineeproject.web.app.domain.entity.Product;
 
 import java.util.List;
 
 public interface ProductService {
-    List<ProductDto> getProducts();
-    void saveProduct(ProductDto productDto);
-    void updateProduct(ProductDto productDto);
+    List<Product> getProducts();
+    void saveProduct(Product productDto);
+    void updateProduct(Product productDto);
     void deleteProductById(String productId);
 }

@@ -1,6 +1,5 @@
 package com.jquezada.blazetraineeproject.web.app.services.Impl;
 
-import com.jquezada.blazetraineeproject.web.app.domain.dto.CompanyDto;
 import com.jquezada.blazetraineeproject.web.app.domain.entity.Company;
 import com.jquezada.blazetraineeproject.web.app.domain.mapper.CompanyMapper;
 import com.jquezada.blazetraineeproject.web.app.repositories.CompanyRepository;
@@ -21,34 +20,32 @@ public class CompanyServiceImpl implements CompanyService {
     private CompanyRepository companyRepository;
 
     @Override
-    public List<CompanyDto> getCompanies() {
+    public List<Company> getCompanies() {
         List<Company> list = new ArrayList<Company>();
-        List<CompanyDto> listDto = new ArrayList<>();
         try{
             list = companyRepository.findAll();
-            listDto = companyMapper.entitiesToDtoList(list);
         } catch (Exception e){
             e.printStackTrace();
         }
-        return listDto;
+        return list;
     }
 
     @Override
-    public void saveCompany(CompanyDto companyDto) {
+    public void saveCompany(Company company) {
         try {
-            companyRepository.save(companyMapper.dtoToEntity(companyDto));
+            companyRepository.save(company);
         } catch (Exception e){
             e.printStackTrace();
         }
     }
 
     @Override
-    public void updateCompany(CompanyDto companyDto) {
+    public void updateCompany(Company company) {
         try {
-            Company companyDB = companyRepository.findById(companyDto.getId()).orElse(null);
+            Company companyDB = companyRepository.findById(company.getId()).orElse(null);
             if(companyDB != null){
-                companyDB.setName(companyDto.getName());
-                companyDB.setDescription(companyDto.getDescription());
+                companyDB.setName(company.getName());
+                companyDB.setDescription(company.getDescription());
                 companyRepository.save(companyDB);
             }
         } catch (Exception e) {
