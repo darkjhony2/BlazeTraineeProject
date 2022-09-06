@@ -1,8 +1,11 @@
 package com.jquezada.blazetraineeproject.web.app.services.Impl;
 
+import com.jquezada.blazetraineeproject.web.app.domain.entity.ERole;
+import com.jquezada.blazetraineeproject.web.app.domain.entity.Employee;
 import com.jquezada.blazetraineeproject.web.app.domain.entity.Shop;
 import com.jquezada.blazetraineeproject.web.app.domain.mapper.ShopMapper;
 import com.jquezada.blazetraineeproject.web.app.repositories.ShopRepository;
+import com.jquezada.blazetraineeproject.web.app.services.EmployeeService;
 import com.jquezada.blazetraineeproject.web.app.services.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,14 +18,23 @@ public class ShopServiceImpl implements ShopService {
 
     @Autowired
     private ShopRepository shopRepository;
+
+    @Autowired
+    private EmployeeService employeeService;
+
     @Autowired
     private ShopMapper shopMapper;
 
     @Override
-    public List<Shop> getShops() {
-        List<Shop> list = new ArrayList<Shop>();
+    public List<Shop> getShops(String employeeUsername) {
+        List<Shop> list = null;
         try {
-            list = shopRepository.findAll();
+            Employee employee = employeeService.findByUsername(employeeUsername);
+            if(employee.getRole().getAuthority() == ERole.ROLE_ADMIN && employee.getCompanyId() != null){
+                list = shopRepository.getShopsByCompanyId(employee.getCompanyId());
+            }else{
+                list =shopRepository.getShopsByIdIn(employee.getShops());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -54,8 +66,13 @@ public class ShopServiceImpl implements ShopService {
         try {
             Shop shopDB = shopRepository.findById(shop.getId()).orElse(null);
             if(shopDB != null){
-                shopDB.setName(shop.getName());
-                shopDB.setDescription(shop.getDescription());
+                if(shop.getName() != null) shopDB.setName(shop.getName());
+                if(shop.getDescription() != null) shopDB.setDescription(shop.getDescription());
+                if(shop.getShopType() != null) shopDB.setShopType(shop.getShopType());
+                if(shop.getEmail() != null) shopDB.setEmail(shop.getEmail());
+                if(shop.getPhoneNumber() != null) shopDB.setPhoneNumber(shop.getPhoneNumber());
+                if(shop.getLicense() != null) shopDB.setLicense(shop.getLicense());
+                if(shop.getAddress() != null) shopDB.setAddress(shop.getAddress());
                 shopRepository.save(shopDB);
             }
         } catch (Exception e){

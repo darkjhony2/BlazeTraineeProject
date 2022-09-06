@@ -1,15 +1,12 @@
 package com.jquezada.blazetraineeproject.web.app.resources.v1;
 
-import com.google.inject.Guice;
-import com.google.inject.Inject;
-import com.google.inject.Injector;
-import com.jquezada.blazetraineeproject.web.app.config.CoreModule;
 import com.jquezada.blazetraineeproject.web.app.domain.mapper.ShopMapper;
 import com.jquezada.blazetraineeproject.web.app.resources.request.ShopAddRequest;
 import com.jquezada.blazetraineeproject.web.app.resources.request.ShopUpdateRequest;
 import com.jquezada.blazetraineeproject.web.app.resources.response.ShopResponse;
 import com.jquezada.blazetraineeproject.web.app.services.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,12 +23,20 @@ public class ShopResource {
     private ShopService shopService;
 
     @GetMapping
-    public List<ShopResponse> getShops(){
+    @PreAuthorize("hasRole('ADMIN') or hasRole('EMPLOYEE')")
+    public List<ShopResponse> getShops(@RequestParam String username){
         //ShopService shopService = injector.getInstance(ShopService.class);
-        return shopMapper.entitiesToResponses(shopService.getShops());
+        return shopMapper.entitiesToResponses(shopService.getShops(username));
+    }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('EMPLOYEE')")
+    public ShopResponse getShopById(@PathVariable String id){
+        return shopMapper.entityToResponse(shopService.getShopById(id));
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public void saveShop(@RequestBody ShopAddRequest shopAddRequest){
         //ShopService shopService = injector.getInstance(ShopService.class);
         shopService.saveShop(shopMapper.addRequestToEntity(shopAddRequest));

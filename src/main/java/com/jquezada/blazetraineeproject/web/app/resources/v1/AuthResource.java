@@ -74,11 +74,13 @@ public class AuthResource {
                 signUpRequest.getLastname(),
                 signUpRequest.getEmail(),
                 signUpRequest.getUsername(),
-                encoder.encode(signUpRequest.getPassword()));
+                encoder.encode(signUpRequest.getPassword()),
+                signUpRequest.getCompanyId(),
+                signUpRequest.getShops());
         String role = signUpRequest.getRole();
         Role roleDB = null;
         if (role == null) {
-            roleDB = roleRepository.findByAuthority(ERole.ROLE_USER)
+            roleDB = roleRepository.findByAuthority(ERole.ROLE_EMPLOYEE)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         } else {
             switch (role) {
@@ -91,7 +93,7 @@ public class AuthResource {
                             .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                     break;
                 default:
-                    roleDB = roleRepository.findByAuthority(ERole.ROLE_USER)
+                    roleDB = roleRepository.findByAuthority(ERole.ROLE_EMPLOYEE)
                             .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             }
         }

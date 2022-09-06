@@ -1,6 +1,8 @@
 package com.jquezada.blazetraineeproject.web.app.resources.request.auth;
 
 
+import java.util.List;
+
 public class SignupRequest {
 
     private String firstName;
@@ -8,8 +10,9 @@ public class SignupRequest {
     private String username;
     private String email;
     private String password;
-
     private String role;
+    private String companyId;
+    private List<String> shops;
 
     public SignupRequest() {
     }
@@ -60,5 +63,21 @@ public class SignupRequest {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
+    }
+
+    public List<String> getShops() {
+        return shops;
+    }
+
+    public void setShops(List<String> shops) {
+        this.shops = shops;
     }
 }

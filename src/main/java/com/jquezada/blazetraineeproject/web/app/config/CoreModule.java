@@ -21,4 +21,6 @@ public class CoreModule extends AbstractModule {
         bind(ShopService.class).to(ShopServiceImpl.class);
         bind(CompanyService.class).to(CompanyServiceImpl.class);
     }
+
+
 }

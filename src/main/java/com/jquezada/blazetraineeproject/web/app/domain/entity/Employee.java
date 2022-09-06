@@ -36,12 +36,14 @@ public class Employee extends CompanyBaseModel {
     private List<String> shops = new ArrayList<>();
     private boolean disabled = false;
 
-    public Employee(String firstName, String lastname, String email, String username, String password) {
+    public Employee(String firstName, String lastname, String email, String username, String password, String companyId, List<String> shops) {
         this.firstName = firstName;
         this.lastname = lastname;
         this.email = email;
         this.username = username;
         this.password = password;
+        this.companyId = companyId;
+        this.shops = shops;
     }
 
     public String getFirstName() {

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ShopService {
 
-    List<Shop> getShops();
+    List<Shop> getShops(String employeeUsername);
     Shop getShopById(String shopId);
     void saveShop(Shop shop);
     void updateShop(Shop shop);

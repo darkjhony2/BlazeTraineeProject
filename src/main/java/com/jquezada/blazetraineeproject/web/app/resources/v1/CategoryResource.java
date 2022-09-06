@@ -30,7 +30,7 @@ public class CategoryResource {
     private CategoryMapper categoryMapper;
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('EMPLOYEE')")
     public List<CategoryResponse> getCategories(){
         //CategoryService categoryService = injector.getInstance(CategoryService.class);
         return categoryMapper.entitiesToResponses(categoryService.getCategories());

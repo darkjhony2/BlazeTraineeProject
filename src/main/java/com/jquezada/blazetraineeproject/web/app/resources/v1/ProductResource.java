@@ -7,6 +7,7 @@ import com.jquezada.blazetraineeproject.web.app.resources.request.ProductUpdateR
 import com.jquezada.blazetraineeproject.web.app.resources.response.ProductResponse;
 import com.jquezada.blazetraineeproject.web.app.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

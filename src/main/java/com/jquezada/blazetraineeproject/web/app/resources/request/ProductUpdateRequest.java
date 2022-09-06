@@ -1,11 +1,15 @@
 package com.jquezada.blazetraineeproject.web.app.resources.request;
 
+import com.jquezada.blazetraineeproject.web.app.domain.entity.generic.BaseProduct;
+
 public class ProductUpdateRequest {
 
     private String id;
     private String name;
     private String description;
     private String shopId;
+
+    private BaseProduct.ProductSaleType productSaleType;
 
     public String getId() {
         return id;
@@ -37,5 +41,13 @@ public class ProductUpdateRequest {
 
     public void setShopId(String shopId) {
         this.shopId = shopId;
+    }
+
+    public BaseProduct.ProductSaleType getProductSaleType() {
+        return productSaleType;
+    }
+
+    public void setProductSaleType(BaseProduct.ProductSaleType productSaleType) {
+        this.productSaleType = productSaleType;
     }
 }

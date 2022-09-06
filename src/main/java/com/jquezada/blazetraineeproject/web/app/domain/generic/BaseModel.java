@@ -1,5 +1,7 @@
 package com.jquezada.blazetraineeproject.web.app.domain.generic;
 
+import org.jongo.marshall.jackson.oid.MongoId;
+import org.jongo.marshall.jackson.oid.MongoObjectId;
 import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
