@@ -7,21 +7,26 @@ import com.jquezada.blazetraineeproject.web.app.domain.entity.Employee;
 import com.jquezada.blazetraineeproject.web.app.domain.entity.Role;
 import com.jquezada.blazetraineeproject.web.app.repositories.EmployeeRepository;
 import com.jquezada.blazetraineeproject.web.app.repositories.RoleRepository;
+import com.jquezada.blazetraineeproject.web.app.repositories.ShopRepository;
 import com.jquezada.blazetraineeproject.web.app.resources.request.auth.LoginRequest;
 import com.jquezada.blazetraineeproject.web.app.resources.request.auth.SignupRequest;
 import com.jquezada.blazetraineeproject.web.app.resources.response.auth.JwtResponse;
 import com.jquezada.blazetraineeproject.web.app.resources.response.auth.MessageResponse;
+import com.jquezada.blazetraineeproject.web.app.services.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @CrossOrigin
@@ -35,6 +40,8 @@ public class AuthResource {
     @Autowired
     RoleRepository roleRepository;
     @Autowired
+    ShopService shopService;
+    @Autowired
     PasswordEncoder encoder;
     @Autowired
     JwtUtils jwtUtils;
@@ -45,16 +52,20 @@ public class AuthResource {
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
-
+        String shopId = Objects.requireNonNull(shopService.getShops(loginRequest.getUsername()).stream().findFirst().orElse(null)).getId();
+        Employee employee = employeeRepository.findByUsername(loginRequest.getUsername()).orElse(null);
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
+                .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
-        return ResponseEntity.ok(new JwtResponse(jwt,
-                userDetails.getId(),
-                userDetails.getUsername(),
-                userDetails.getEmail(),
-                roles));
+        if(employee!= null && employee.getCompanyId() != null){
+            return ResponseEntity.ok(new JwtResponse(jwt,
+                    userDetails.getId(),
+                    userDetails.getUsername(),
+                    userDetails.getEmail(),
+                    roles,shopId, employee.getCompanyId()));
+        }
+        return new ResponseEntity<String>("This employee doesn't exist",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @PostMapping("/signup")

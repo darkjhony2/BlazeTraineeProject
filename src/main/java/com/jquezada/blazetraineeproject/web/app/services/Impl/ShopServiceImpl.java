@@ -73,6 +73,13 @@ public class ShopServiceImpl implements ShopService {
                 if(shop.getPhoneNumber() != null) shopDB.setPhoneNumber(shop.getPhoneNumber());
                 if(shop.getLicense() != null) shopDB.setLicense(shop.getLicense());
                 if(shop.getAddress() != null) shopDB.setAddress(shop.getAddress());
+                if(shop.getShowWalkInQueue() != null) shopDB.setShowWalkInQueue(shop.getShowWalkInQueue() );
+                if(shop.getShowDeliveryQueue() != null) shopDB.setShowDeliveryQueue(shop.getShowDeliveryQueue());
+                if(shop.getShowOnlineQueue() != null) shopDB.setShowOnlineQueue(shop.getShowOnlineQueue());
+                if(shop.getShowSpecialQueue() != null) shopDB.setShowSpecialQueue(shop.getShowSpecialQueue());
+                if(shop.getEnableCashInOut() != null) shopDB.setEnableCashInOut(shop.getEnableCashInOut());
+                if(shop.getActive() != null) shopDB.setActive(shop.getActive());
+                if(shop.getEnableSaleLogout() != null) shopDB.setEnableSaleLogout(shop.getEnableSaleLogout());
                 shopRepository.save(shopDB);
             }
         } catch (Exception e){
@@ -85,7 +92,7 @@ public class ShopServiceImpl implements ShopService {
         try {
             Shop shop = shopRepository.findById(shopId).orElse(null);
             if(shop != null){
-                shop.setDeleted(true);
+                shop.setActive(false);
                 shopRepository.save(shop);
             }
         } catch (Exception e){

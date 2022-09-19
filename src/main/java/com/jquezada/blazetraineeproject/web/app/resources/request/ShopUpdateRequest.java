@@ -12,6 +12,14 @@ public class ShopUpdateRequest {
     private Shop.ShopType shopType;
     private Address address;
 
+    private Boolean showWalkInQueue = true;
+    private Boolean showDeliveryQueue = true;
+    private Boolean showOnlineQueue = false;
+    private Boolean showSpecialQueue = false;
+    private Boolean enableCashInOut = false;
+    private Boolean active = true;
+    private Boolean enableSaleLogout = false;
+
     private String email;
     private String phoneNumber;
     private String license;
@@ -86,5 +94,61 @@ public class ShopUpdateRequest {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public Boolean getShowWalkInQueue() {
+        return showWalkInQueue;
+    }
+
+    public void setShowWalkInQueue(Boolean showWalkInQueue) {
+        this.showWalkInQueue = showWalkInQueue;
+    }
+
+    public Boolean getShowDeliveryQueue() {
+        return showDeliveryQueue;
+    }
+
+    public void setShowDeliveryQueue(Boolean showDeliveryQueue) {
+        this.showDeliveryQueue = showDeliveryQueue;
+    }
+
+    public Boolean getShowOnlineQueue() {
+        return showOnlineQueue;
+    }
+
+    public void setShowOnlineQueue(Boolean showOnlineQueue) {
+        this.showOnlineQueue = showOnlineQueue;
+    }
+
+    public Boolean getShowSpecialQueue() {
+        return showSpecialQueue;
+    }
+
+    public void setShowSpecialQueue(Boolean showSpecialQueue) {
+        this.showSpecialQueue = showSpecialQueue;
+    }
+
+    public Boolean getEnableCashInOut() {
+        return enableCashInOut;
+    }
+
+    public void setEnableCashInOut(Boolean enableCashInOut) {
+        this.enableCashInOut = enableCashInOut;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public Boolean getEnableSaleLogout() {
+        return enableSaleLogout;
+    }
+
+    public void setEnableSaleLogout(Boolean enableSaleLogout) {
+        this.enableSaleLogout = enableSaleLogout;
     }
 }

@@ -43,12 +43,14 @@ public class ShopResource {
     }
 
     @PutMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public void updateShop(@RequestBody ShopUpdateRequest shopUpdateRequest){
         //ShopService shopService = injector.getInstance(ShopService.class);
         shopService.updateShop(shopMapper.updateRequestToEntity(shopUpdateRequest));
     }
 
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteShop(@PathVariable String id){
         //ShopService shopService = injector.getInstance(ShopService.class);
         shopService.deleteShopId(id);

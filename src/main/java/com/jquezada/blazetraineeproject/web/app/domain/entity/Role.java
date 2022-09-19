@@ -32,4 +32,6 @@ public class Role extends CompanyBaseModel {
     public void setAuthority(ERole authority) {
         this.authority = authority;
     }
+
+
 }

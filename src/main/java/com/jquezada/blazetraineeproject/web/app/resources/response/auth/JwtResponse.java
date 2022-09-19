@@ -10,13 +10,17 @@ public class JwtResponse {
     private String username;
     private String email;
     private List<String> roles;
+    private String shopId;
+    private String companyId;
 
-    public JwtResponse(String token, String id, String username, String email, List<String> roles) {
+    public JwtResponse(String token, String id, String username, String email, List<String> roles, String shopId, String companyId) {
         this.token = token;
         this.id = id;
         this.username = username;
         this.email = email;
         this.roles = roles;
+        this.shopId = shopId;
+        this.companyId = companyId;
     }
 
     public String getToken() {
@@ -65,5 +69,21 @@ public class JwtResponse {
 
     public void setRoles(List<String> roles) {
         this.roles = roles;
+    }
+
+    public String getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(String shopId) {
+        this.shopId = shopId;
+    }
+
+    public String getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
     }
 }
